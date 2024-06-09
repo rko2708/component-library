@@ -1,0 +1,35 @@
+.sorting-visualizer-container {
+    padding: 20px 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+}
+
+.sorting-visualizer-heading {
+    color: #fff;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.sorting-visualizer-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.sorting-visualizer-generated-array-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    margin: 100px 0 0;
+    align-items: flex-end;
+}
+
+.sorting-visualizer-array-element {
+    width: 20px;
+    background-color: #adfc03;
+    margin: 0 10px;
+}
