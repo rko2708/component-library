@@ -8,16 +8,32 @@ export const generateNewArray = (size: number, start: number, end: number) => {
   return arr;
 };
 
-export const bubbleSort = (sortedArray: Array<number>) => {
-  let arr = sortedArray;
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length - i - 1; j++) {
-      if (arr[j] > arr[j + 1]) {
-        let temp = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = temp;
+export const bubbleSortSteps = (arr: Array<number>) => {
+  let sortedArray = [...arr];
+  let steps = [];
+  for (let i = 0; i < sortedArray.length; i++) {
+    for (let j = 0; j < sortedArray.length - i - 1; j++) {
+      steps.push({
+        array: [...sortedArray],
+        comparing: [j, j + 1],
+        swapped: false,
+      });
+      if (sortedArray[j] > sortedArray[j + 1]) {
+        let temp = sortedArray[j];
+        sortedArray[j] = sortedArray[j + 1];
+        sortedArray[j + 1] = temp;
+        steps.push({
+          array: [...sortedArray],
+          comparing: [j, j + 1],
+          swapped: true,
+        });
       }
     }
   }
-  return arr;
+  steps.push({
+    array: [...sortedArray],
+    comparing: [],
+    swapped: false,
+  });
+  return steps;
 };

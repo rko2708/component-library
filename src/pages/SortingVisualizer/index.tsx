@@ -1,10 +1,12 @@
 import "./styles.css";
 import Button from "../../components/Button";
-import { generateNewArray, bubbleSort } from "./helpers";
-import { useState } from "react";
+import { generateNewArray, bubbleSortSteps } from "./helpers";
+import { useEffect, useState } from "react";
 
 const SortingVisualizer = () => {
   const [initialArray, setInitialArray] = useState<Array<number> | null>(null);
+  const [sortingSteps, setSortingSteps] = useState<any>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const buttonStyles = {
     fontSize: "20px",
@@ -17,14 +19,32 @@ const SortingVisualizer = () => {
     setInitialArray(arr);
   };
 
+  useEffect(() => {
+    if (sortingSteps.length > 0 && currentIndex < sortingSteps.length) {
+      const timeoutId = setTimeout(() => {
+        setCurrentIndex((currentIndex) => currentIndex + 1);
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [currentIndex, sortingSteps]);
+
   const displayGeneratedArray = (): React.ReactNode => {
     if (!initialArray) return <div>Array Not Found</div>;
+    const currentStep = sortingSteps?.[currentIndex] || {
+      array: initialArray,
+      comparing: [],
+      swapped: false,
+    };
+    // const comparing = currentStep?.comparing;
+    // const swapped = currentStep?.swapped;
     return (
       <div className="sorting-visualizer-generated-array-container">
-        {initialArray.map((element, index) => (
+        {currentStep?.array?.map((element: number, index: number) => (
           <div
             key={index}
-            className="sorting-visualizer-array-element"
+            className={`sorting-visualizer-array-element ${
+              currentStep.comparing.includes(index) ? "comparing" : ""
+            } ${currentStep.swapped && currentStep.comparing.includes(index) ? "swapped" : ""}`}
             style={{ height: `${20 * element}px` }}
           ></div>
         ))}
@@ -34,8 +54,8 @@ const SortingVisualizer = () => {
 
   const handleBubbleSort = () => {
     if (!initialArray) return;
-    const sortedArray = bubbleSort(initialArray);
-    setInitialArray([...sortedArray]);
+    const steps = bubbleSortSteps(initialArray);
+    setSortingSteps(steps);
   };
 
   return (

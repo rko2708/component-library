@@ -33,3 +33,26 @@
     background-color: #adfc03;
     margin: 0 10px;
 }
+
+.sorting-visualizer-generated-array-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    margin: 20px 0;
+}
+
+.sorting-visualizer-array-element {
+    width: 10px;
+    background-color: #adfc03;
+    margin: 0 5px;
+    transition: all 0.5s ease; /* Smooth transition for height changes */
+}
+
+.sorting-visualizer-array-element.comparing {
+    background-color: red; /* Color for elements being compared */
+}
+
+.sorting-visualizer-array-element.swapped {
+    background-color: blue; /* Color for elements being swapped */
+}
